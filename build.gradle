@@ -1,0 +1,39 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'net.mitrol.pandoraBotConnector'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter-websocket") {
+        exclude group: 'org.springframework.boot', module: 'spring-oot-starter-logging'
+    }
+
+    // log4j2
+    compile 'org.apache.logging.log4j:log4j-api:2.5'
+    compile 'org.apache.logging.log4j:log4j-core:2.5'
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    //test
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}

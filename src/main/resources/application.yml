@@ -1,0 +1,2 @@
+pandora:
+  url: ws://pandora.mitrol.net:8080/xson

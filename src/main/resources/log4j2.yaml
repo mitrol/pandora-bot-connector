@@ -1,0 +1,53 @@
+Configutation:
+
+  name: Default
+
+  Properties:
+    Property:
+      name: log-path
+      value: C:/Temp/pandora-bot-connector.log
+
+  Appenders:
+
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n'
+
+    File:
+      name: File_Appender
+      fileName: ${log-path}/logfile.log
+      PatternLayout:
+        pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n'
+
+    RollingFile:
+      DefaultRolloverStrategy:
+        max: '30'
+      PatternLayout:
+        pattern: '[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n'
+      Policies:
+        SizeBasedTriggeringPolicy:
+          size: 1 KB
+      fileName: ${log-path}/rollingfile.log
+      filePattern: ${archive}/rollingfile.%d{yyyy-MM-dd-hh-mm}.log
+      name: RollingFile-Appender
+      
+  Loggers:
+  
+    Root:
+      level: info
+      AppenderRef:
+      - ref: Console_Appender
+      
+    Logger:
+    - name: net.mitrol.pandoraBotConnector
+      level: info
+      additivity: false
+      AppenderRef:
+      - ref: Console_Appender
+        level: error
+      - ref: File_Appender
+        level: debug
+      - ref: RollingFile-Appender
+        level: debug
